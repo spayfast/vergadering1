@@ -6,11 +6,16 @@ import { useState } from "react";
 type Props = {
     vraag: string;
     antwoord: string;
+    next_q: string;
+    given_hint?: string; // optional
+
 }
 
-const InputLoader: React.FC<Props> = ({vraag, antwoord}:Props) =>{
+const InputLoader: React.FC<Props> = ({vraag, antwoord, next_q, given_hint}:Props) =>{
     const router = useRouter();
     const [ans1Er, setAns1Er] = useState<string>("");
+    const [hint, setHint] = useState<boolean>(false)
+    let wrong = 0
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         setAns1Er("")
@@ -21,8 +26,15 @@ const InputLoader: React.FC<Props> = ({vraag, antwoord}:Props) =>{
         }
         if (data.ans1.toLowerCase() === antwoord){
             setAns1Er("Goed!")
+            wrong = 0
+            setTimeout(()=>router.push(next_q), 1500);
         } else{
             setAns1Er("Probeer opnieuw!")
+            wrong +=1
+            if (wrong>4){
+                setHint(true)
+            }
+            console.log(wrong)
         }
 
 
@@ -31,7 +43,7 @@ const InputLoader: React.FC<Props> = ({vraag, antwoord}:Props) =>{
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8 h-[100vh]">
+            <div className="flex flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8 h-[50vh]">
             <div className="w-full max-w-md space-y-8 rounded-lg border-1 bg-card p-10 shadow-xl">
                 <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
                     {vraag}
@@ -46,6 +58,7 @@ const InputLoader: React.FC<Props> = ({vraag, antwoord}:Props) =>{
                         <Button variant="default" size="default" type="submit" className="w-full bg-input">
                             <p>Indienen</p>
                         </Button>
+                        {(given_hint && hint) && <p className="text-xl text-center">HINT: {given_hint}</p>}
                     </div>
                 </form>
             </div>
