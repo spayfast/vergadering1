@@ -10,6 +10,8 @@
       --card: 0 0% 100%;
       --card-foreground: 224 71.4% 4.1%;
 
+      --error: 355 92% 43%;
+
       --popover: 0 0% 100%;
       --popover-foreground: 224 71.4% 4.1%;
 
@@ -33,6 +35,8 @@
       --ring: 224 71.4% 4.1%;
 
       --radius: 0.5rem;
+      --card: 225, 58%, 60%;
+      --input: 215 27.9% 16.9%;;
     }
 
     .dark {
