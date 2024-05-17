@@ -1,10 +1,16 @@
 "use client"
-import Image from "next/image";
+
+
+import InputLoader from "@/components/inputLoader";
+import { PageTransition } from "@/components/pageTransition";
 
 export default function Home() {
+
   return (
-    <main className="">
-      <h1>Welcome</h1>
-    </main>
+    <PageTransition >
+      <main className="">
+          <InputLoader vraag="Wat is de naam van deze vakantie" antwoord="turn around the city" />
+      </main>
+    </PageTransition>
   );
 }
